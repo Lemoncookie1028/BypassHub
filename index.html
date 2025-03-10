@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BypassHub</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        input { width: 70%; padding: 10px; margin: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 15px; border: none; background: #007BFF; color: white; cursor: pointer; border-radius: 5px; }
+        button:hover { background: #0056b3; }
+        iframe { width: 100%; height: 80vh; border: 1px solid #ddd; margin-top: 10px; }
+        .suggested-links { margin-top: 20px; }
+        .suggested-links a { display: block; margin: 5px; color: #007BFF; text-decoration: none; }
+        .suggested-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h2>BypassHub</h2>
+    <p>Enter a URL to view it within this page:</p>
+    <input type="text" id="urlInput" placeholder="Enter website URL">
+    <button onclick="loadSite()">Go</button>
+    <iframe id="proxyFrame"></iframe>
+    
+    <div class="suggested-links">
+        <h3>Suggested Websites</h3>
+        <a href="#" onclick="setURL('https://example.com')">Example</a>
+        <a href="#" onclick="setURL('https://wikipedia.org')">Wikipedia</a>
+        <a href="#" onclick="setURL('https://duckduckgo.com')">DuckDuckGo</a>
+        <a href="#" onclick="setURL('https://archive.org')">Internet Archive</a>
+    </div>
+    
+    <script>
+        function loadSite() {
+            let url = document.getElementById('urlInput').value.trim();
+            if (!url) {
+                alert('Please enter a valid URL.');
+                return;
+            }
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'http://' + url;
+            }
+            try {
+                let frame = document.getElementById('proxyFrame');
+                frame.src = url;
+            } catch (error) {
+                alert('Failed to load the site. It may have restrictions on embedding.');
+            }
+        }
+        
+        function setURL(url) {
+            document.getElementById('urlInput').value = url;
+            loadSite();
+        }
+    </script>
+</body>
+</html>
